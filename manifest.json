@@ -1,0 +1,17 @@
+{
+  "name": "Poste de pilotage — Recherche d'emploi",
+  "short_name": "Pilotage emploi",
+  "description": "Veille, tâches et suivi de candidatures pour la recherche d'emploi à Valenciennes.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F1EEE4",
+  "theme_color": "#12302F",
+  "lang": "fr",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

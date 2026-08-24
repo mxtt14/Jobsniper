@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Poste de pilotage — Recherche d'emploi Valenciennes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F1EEE4;
+    --paper-raised:#FAF8F2;
+    --ink:#182420;
+    --ink-soft:#4B5750;
+    --petrol:#1F4B4C;
+    --petrol-dark:#12302F;
+    --signal:#F2B705;
+    --signal-ink:#4A3900;
+    --danger:#B3402A;
+    --danger-soft:#F1DAD3;
+    --success:#2F7A4F;
+    --success-soft:#DCEBDF;
+    --wait:#3A6EA5;
+    --wait-soft:#DCE6F1;
+    --line:#D9D2BE;
+    --line-soft:#E8E3D4;
+    --radius:3px;
+    --font-display:'Barlow Semi Condensed', sans-serif;
+    --font-body:'Inter', sans-serif;
+    --font-mono:'IBM Plex Mono', monospace;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--font-body);
+    -webkit-font-smoothing:antialiased;
+    background-image:
+      linear-gradient(var(--line-soft) 1px, transparent 1px);
+    background-size: 100% 32px;
+  }
+  ::selection{ background:var(--signal); color:var(--ink); }
+  a{ color:var(--petrol); }
+
+  .wrap{ max-width:980px; margin:0 auto; padding:20px 16px 80px; }
+
+  /* HEADER */
+  .masthead{
+    background:var(--petrol-dark);
+    color:var(--paper-raised);
+    border-radius:6px;
+    padding:24px 26px 20px;
+    position:relative;
+    overflow:hidden;
+    box-shadow:0 1px 0 rgba(0,0,0,.08), 0 8px 20px -12px rgba(18,48,47,.5);
+  }
+  .masthead-sweep{
+    position:absolute; inset:-40%;
+    background:conic-gradient(from 0deg, transparent 0deg, rgba(242,183,5,.08) 40deg, transparent 90deg);
+    animation:masthead-spin 14s linear infinite;
+    pointer-events:none;
+  }
+  @keyframes masthead-spin{ to{ transform:rotate(360deg); } }
+  .masthead-inner{ position:relative; z-index:1; }
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:#8FD9B8;
+    display:flex; align-items:center; gap:8px;
+  }
+  .eyebrow .dot{ width:7px; height:7px; border-radius:50%; background:#4ADE80; box-shadow:0 0 6px #4ADE80; display:inline-block; }
+  h1{
+    font-family:var(--font-display);
+    font-weight:700;
+    font-size:clamp(28px, 5vw, 38px);
+    line-height:1.02;
+    margin:6px 0 4px;
+    letter-spacing:.01em;
+    color:#fff;
+  }
+  .sub{ font-size:14px; color:#B7C9C3; max-width:56ch; margin:0 0 18px; }
+
+  .statrow{
+    display:grid;
+    grid-template-columns:repeat(6,1fr);
+    gap:12px;
+  }
+  .stat{ display:flex; flex-direction:column; align-items:center; gap:5px; text-align:center; }
+  .stat b{
+    width:46px; height:46px;
+    border-radius:50%;
+    border:3px solid rgba(242,183,5,.35);
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-mono);
+    font-weight:400;
+    font-size:14px;
+    color:var(--signal);
+    margin:0;
+  }
+  .stat span{ font-family:var(--font-mono); font-size:8.5px; text-transform:uppercase; color:#8FA69E; letter-spacing:.03em; }
+
+  /* TABS */
+  .tabs{
+    display:flex; gap:6px; margin:18px 0 16px;
+    overflow-x:auto; padding-bottom:2px;
+    scrollbar-width:none;
+  }
+  .tabs::-webkit-scrollbar{ display:none; }
+  .tab-btn{
+    font-family:var(--font-display);
+    font-weight:600;
+    font-size:15px;
+    letter-spacing:.01em;
+    background:var(--paper-raised);
+    border:1px solid var(--line);
+    color:var(--ink-soft);
+    padding:8px 16px;
+    border-radius:4px;
+    cursor:pointer;
+    white-space:nowrap;
+    transition:.15s;
+  }
+  .tab-btn:hover{ border-color:var(--petrol); color:var(--ink); }
+  .tab-btn.active{
+    background:var(--ink);
+    border-color:var(--ink);
+    color:var(--paper-raised);
+  }
+  .tab-btn .count{
+    font-family:var(--font-mono);
+    font-size:11px;
+    background:rgba(0,0,0,.08);
+    padding:1px 6px;
+    border-radius:10px;
+    margin-left:6px;
+  }
+  .tab-btn.active .count{ background:rgba(255,255,255,.18); }
+
+  .panel{ display:none; }
+  .panel.active{ display:block; animation:fade .25s ease; }
+  @keyframes fade{ from{opacity:0; transform:translateY(3px);} to{opacity:1; transform:none;} }
+
+  /* TOOLBAR */
+  .toolbar{
+    display:flex; flex-wrap:wrap; gap:8px; align-items:center;
+    margin-bottom:14px;
+  }
+  .toolbar input[type=text], .toolbar select{
+    font-family:var(--font-body);
+    font-size:13.5px;
+    padding:8px 10px;
+    border:1px solid var(--line);
+    border-radius:4px;
+    background:var(--paper-raised);
+    color:var(--ink);
+  }
+  .toolbar input[type=text]{ flex:1 1 180px; min-width:140px; }
+  .toolbar label.check{
+    display:flex; align-items:center; gap:6px;
+    font-size:12.5px; color:var(--ink-soft);
+    white-space:nowrap;
+  }
+  .btn{
+    font-family:var(--font-display);
+    font-weight:600; font-size:14px;
+    border:none; border-radius:4px;
+    padding:9px 16px;
+    cursor:pointer;
+    display:inline-flex; align-items:center; gap:6px;
+    transition:.15s;
+  }
+  .btn-primary{ background:var(--petrol); color:#fff; }
+  .btn-primary:hover{ background:var(--petrol-dark); }
+  .btn-ghost{ background:transparent; border:1px solid var(--line); color:var(--ink-soft); }
+  .btn-ghost:hover{ border-color:var(--ink); color:var(--ink); }
+  .btn-danger{ background:transparent; color:var(--danger); border:1px solid var(--danger-soft); }
+  .btn-danger:hover{ background:var(--danger-soft); }
+  .btn-sm{ padding:5px 10px; font-size:12.5px; }
+
+  /* MISSION CARD (signature element) */
+  .grid{ display:grid; gap:12px; }
+  .card{
+    background:var(--paper-raised);
+    border:1px solid var(--line);
+    border-radius:4px;
+    position:relative;
+    padding:14px 16px 14px 20px;
+    box-shadow:0 1px 0 rgba(0,0,0,.02);
+  }
+  .card::before{
+    content:"";
+    position:absolute; left:0; top:0; bottom:0; width:6px;
+    background:var(--status-color, var(--line));
+    border-radius:4px 0 0 4px;
+  }
+  .card::after{
+    /* perforation notches echoing an ordre de mission stub */
+    content:"";
+    position:absolute; left:2px; top:0; bottom:0; width:6px;
+    background-image: radial-gradient(circle, var(--paper) 1.6px, transparent 1.7px);
+    background-size: 6px 10px;
+    background-position: 0 5px;
+    opacity:.9;
+  }
+  .card-top{
+    display:flex; justify-content:space-between; align-items:flex-start; gap:10px;
+    margin-bottom:6px;
+  }
+  .card-title{
+    font-family:var(--font-display);
+    font-weight:600;
+    font-size:18px;
+    line-height:1.15;
+    margin:0;
+  }
+  .card-ref{
+    font-family:var(--font-mono);
+    font-size:10.5px;
+    color:var(--ink-soft);
+    white-space:nowrap;
+    padding-top:3px;
+  }
+  .card-meta{
+    font-size:13px; color:var(--ink-soft);
+    margin:2px 0 8px;
+    display:flex; flex-wrap:wrap; gap:4px 10px;
+  }
+  .card-meta strong{ color:var(--ink); font-weight:600; }
+  .tags{ display:flex; flex-wrap:wrap; gap:6px; margin-bottom:10px; }
+  .tag{
+    font-family:var(--font-mono);
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:.04em;
+    padding:3px 8px;
+    border-radius:20px;
+    border:1px solid var(--line);
+    color:var(--ink-soft);
+    background:var(--paper);
+  }
+  .tag.contrat{ border-color:var(--petrol); color:var(--petrol); }
+  .tag.warn{ border-color:var(--danger); color:var(--danger); background:var(--danger-soft); }
+  .tag.duree{ border-color:var(--success); color:var(--success); background:var(--success-soft); }
+  .card-notes{ font-size:12.5px; color:var(--ink-soft); font-style:italic; margin:0 0 10px; }
+  .card-bottom{
+    display:flex; justify-content:space-between; align-items:center; gap:10px;
+    flex-wrap:wrap;
+    border-top:1px dashed var(--line);
+    padding-top:10px;
+  }
+  .status-select{
+    font-family:var(--font-body);
+    font-size:12.5px; font-weight:600;
+    padding:6px 10px;
+    border-radius:20px;
+    border:1px solid var(--line);
+    background:var(--paper);
+    color:var(--ink);
+  }
+  .card-actions{ display:flex; gap:6px; align-items:center; }
+  .icon-link{
+    font-size:12.5px; font-weight:600; color:var(--petrol);
+    text-decoration:none; display:inline-flex; align-items:center; gap:4px;
+  }
+  .icon-link:hover{ text-decoration:underline; }
+
+  .empty{
+    text-align:center; padding:48px 20px;
+    color:var(--ink-soft);
+    border:1px dashed var(--line);
+    border-radius:6px;
+    background:var(--paper-raised);
+  }
+  .empty b{ display:block; font-family:var(--font-display); font-size:19px; color:var(--ink); margin-bottom:4px;}
+
+  /* KANBAN (Suivi) */
+  .kanban{
+    display:grid;
+    grid-template-columns:repeat(7, minmax(210px,1fr));
+    gap:10px;
+    overflow-x:auto;
+    padding-bottom:8px;
+  }
+  .kcol{ min-width:210px; }
+  .kcol-head{
+    font-family:var(--font-display);
+    font-weight:600; font-size:14px;
+    padding:7px 10px;
+    border-radius:4px 4px 0 0;
+    background:var(--status-color, var(--ink));
+    color:#fff;
+    display:flex; justify-content:space-between; align-items:center;
+  }
+  .kcol-body{
+    background:var(--line-soft);
+    border-radius:0 0 4px 4px;
+    padding:8px;
+    min-height:60px;
+    display:flex; flex-direction:column; gap:8px;
+  }
+  .kcard{
+    background:var(--paper-raised);
+    border:1px solid var(--line);
+    border-left:4px solid var(--status-color, var(--line));
+    border-radius:3px;
+    padding:8px 10px;
+    font-size:12.5px;
+  }
+  .kcard b{ display:block; font-family:var(--font-display); font-size:14.5px; font-weight:600; margin-bottom:1px; }
+  .kcard .kmeta{ color:var(--ink-soft); font-size:11.5px; margin-bottom:6px; }
+  .kcard select{ width:100%; font-size:11.5px; padding:3px 4px; border-radius:3px; border:1px solid var(--line); }
+
+  /* SITES tab */
+  .site-group{ margin-bottom:22px; }
+  .site-group h3{
+    font-family:var(--font-display); font-weight:600; font-size:17px;
+    border-bottom:2px solid var(--ink); padding-bottom:4px; margin-bottom:10px;
+  }
+  .site-row{
+    display:flex; justify-content:space-between; align-items:baseline;
+    padding:9px 0; border-bottom:1px solid var(--line-soft);
+    gap:10px; flex-wrap:wrap;
+  }
+  .site-row .name{ font-weight:600; }
+  .site-row .addr{ font-size:12px; color:var(--ink-soft); font-family:var(--font-mono); }
+  .criteria-box{
+    background:var(--paper-raised); border:1px solid var(--line); border-radius:6px;
+    padding:16px 18px; font-size:13.5px; line-height:1.7;
+  }
+  .criteria-box code{ background:var(--paper); padding:1px 5px; border-radius:3px; font-family:var(--font-mono); font-size:12px;}
+
+  .helpbar{
+    background:var(--signal); color:var(--signal-ink);
+    border-radius:5px; padding:10px 14px; font-size:13px;
+    display:flex; align-items:center; gap:8px; margin-bottom:16px;
+    font-weight:500;
+  }
+
+  /* MODAL */
+  .modal-bg{
+    position:fixed; inset:0; background:rgba(20,30,27,.55);
+    display:none; align-items:flex-start; justify-content:center;
+    padding:30px 14px; z-index:50; overflow-y:auto;
+  }
+  .modal-bg.open{ display:flex; }
+  .modal{
+    background:var(--paper-raised); border-radius:6px; max-width:480px; width:100%;
+    padding:22px; box-shadow:0 20px 50px rgba(0,0,0,.3);
+  }
+  .modal h2{ font-family:var(--font-display); font-size:22px; margin:0 0 14px; }
+  .field{ margin-bottom:12px; }
+  .field label{ display:block; font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:.03em; color:var(--ink-soft); margin-bottom:4px; }
+  .field input, .field select, .field textarea{
+    width:100%; padding:8px 10px; border:1px solid var(--line); border-radius:4px;
+    font-family:var(--font-body); font-size:14px; background:var(--paper);
+  }
+  .field textarea{ resize:vertical; min-height:50px; }
+  .modal-actions{ display:flex; justify-content:flex-end; gap:8px; margin-top:16px; }
+
+  .fab{
+    position:fixed; right:20px; bottom:20px;
+    background:var(--ink); color:var(--paper-raised);
+    width:52px; height:52px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-size:26px; border:none; cursor:pointer;
+    box-shadow:0 8px 20px rgba(0,0,0,.25);
+    z-index:20;
+  }
+  .fab:hover{ background:var(--petrol); }
+
+  .toast{
+    position:fixed; left:50%; bottom:26px; transform:translateX(-50%) translateY(20px);
+    background:var(--ink); color:#fff; padding:10px 18px; border-radius:20px;
+    font-size:13px; opacity:0; pointer-events:none; transition:.25s;
+    z-index:60;
+  }
+  .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+
+  @media (max-width:640px){
+    .statrow{ grid-template-columns:repeat(3,1fr); }
+    .stat:nth-child(4), .stat:nth-child(5), .stat:nth-child(6){ display:none; }
+    .stat b{ width:40px; height:40px; font-size:13px; }
+  }
+</style>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#12302F">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Pilotage emploi">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="masthead-sweep"></div>
+    <div class="masthead-inner">
+      <div class="eyebrow"><span class="dot"></span>Poste de pilotage actif · Valenciennes (59) + 25 km</div>
+      <h1>Recherche d'emploi</h1>
+      <p class="sub">Job alimentaire en CDD / intérim, environ 3 mois, le moins contraignant possible — avec, en option, des missions de management / gestion.</p>
+      <div class="statrow" id="statRow"></div>
+    </div>
+  </header>
+
+  <div class="helpbar">
+    ⚡ Dites <strong>« lance la veille du jour »</strong> dans le chat pour actualiser. Je cherche large sur tous les sites surveillés et n'ajoute que les annonces postées la veille ou le matin même — pas de doublons avec ce qui est déjà ici.
+  </div>
+
+  <nav class="tabs">
+    <button class="tab-btn active" data-tab="veille">Veille <span class="count" id="cnt-veille">0</span></button>
+    <button class="tab-btn" data-tab="taches">Tâches à produire <span class="count" id="cnt-taches">0</span></button>
+    <button class="tab-btn" data-tab="perso">Mes candidatures <span class="count" id="cnt-perso">0</span></button>
+    <button class="tab-btn" data-tab="suivi">Suivi des candidatures <span class="count" id="cnt-suivi">0</span></button>
+    <button class="tab-btn" data-tab="sites">Sites surveillés</button>
+  </nav>
+
+  <!-- VEILLE -->
+  <section class="panel active" id="panel-veille">
+    <div class="toolbar">
+      <input type="text" id="searchInput" placeholder="Rechercher un poste, une entreprise, une ville…">
+      <select id="filterContrat">
+        <option value="">Tous contrats</option>
+        <option value="CDD">CDD</option>
+        <option value="Intérim">Intérim</option>
+        <option value="CDI">CDI</option>
+        <option value="Autre">Autre</option>
+      </select>
+      <select id="sortBy">
+        <option value="date">Plus récentes d'abord</option>
+        <option value="lieu">Lieu (A→Z)</option>
+        <option value="contrat">Type de contrat</option>
+      </select>
+      <label class="check"><input type="checkbox" id="hideRefus" checked> Masquer les refusées</label>
+    </div>
+    <div class="grid" id="veilleList"></div>
+  </section>
+
+  <!-- TACHES -->
+  <section class="panel" id="panel-taches">
+    <div class="toolbar">
+      <p style="margin:0; font-size:13.5px; color:var(--ink-soft);">Toutes les annonces pour lesquelles un CV ou une lettre de motivation reste à produire.</p>
+    </div>
+    <div class="grid" id="tachesList"></div>
+  </section>
+
+  <!-- MES CANDIDATURES (auto-ajoutées par l'utilisateur) -->
+  <section class="panel" id="panel-perso">
+    <div class="toolbar">
+      <p style="margin:0; font-size:13.5px; color:var(--ink-soft);">Postes auxquels vous avez postulé par vous-même, en dehors de la veille — pour les garder dans le même suivi.</p>
+    </div>
+    <div class="card" style="margin-bottom:16px;">
+      <h3 class="card-title" style="margin-bottom:12px;">Ajouter une candidature</h3>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:0 12px;">
+        <div class="field"><label>Intitulé du poste</label><input type="text" id="p-titre" placeholder="Ex. Agent d'entretien"></div>
+        <div class="field"><label>Entreprise</label><input type="text" id="p-entreprise" placeholder="Ex. Ville de Valenciennes"></div>
+        <div class="field"><label>Lieu</label><input type="text" id="p-lieu" placeholder="Ex. Valenciennes"></div>
+        <div class="field"><label>Type de contrat</label>
+          <select id="p-contrat"><option>CDD</option><option>Intérim</option><option>CDI</option><option>Autre</option></select>
+        </div>
+        <div class="field"><label>Date de candidature</label><input type="date" id="p-date"></div>
+        <div class="field"><label>Statut</label>
+          <select id="p-statut"></select>
+        </div>
+      </div>
+      <div class="field"><label>Lien de l'annonce (si disponible)</label><input type="text" id="p-url" placeholder="https://…"></div>
+      <div class="field"><label>Notes</label><textarea id="p-notes" placeholder="Comment vous avez postulé, contact, remarques…"></textarea></div>
+      <div class="modal-actions" style="margin-top:6px;">
+        <button class="btn btn-primary" id="confirmAddPerso">Ajouter à mon suivi</button>
+      </div>
+    </div>
+    <div class="grid" id="persoList"></div>
+  </section>
+
+  <!-- SUIVI -->
+  <section class="panel" id="panel-suivi">
+    <div class="kanban" id="kanban"></div>
+  </section>
+
+  <!-- SITES -->
+  <section class="panel" id="panel-sites">
+    <div class="site-group">
+      <h3>Critères actifs de la veille</h3>
+      <div class="criteria-box">
+        <strong>Localisation :</strong> Valenciennes (59300) et environs — rayon <code>25 km</code> (agences d'intérim : rayon <code>15 km</code>)<br>
+        <strong>Contrats visés :</strong> <code>CDD</code>, <code>Intérim</code> — durée cible ≈ <code>3 mois</code><br>
+        <strong>Priorité :</strong> tout poste accessible sans qualification particulière — le filet est volontairement large (production, logistique, entretien, accueil, vente, restauration rapide, sécurité…), pas restreint à un seul type de métier<br>
+        <strong>Exclusions :</strong> <code>Caissier</code>, <code>Préparateur de commandes</code>, <code>postes nécessitant un permis de conduire</code><br>
+        <strong>Option secondaire (non prioritaire) :</strong> missions de management / gestion financière ou opérationnelle<br>
+        <strong>Rythme de la veille :</strong> 1er passage le 24/08 — recherche large, toutes les annonces en ligne depuis le <code>10/08/2026</code>. À partir du passage suivant : uniquement les annonces postées la veille ou le matin même.
+      </div>
+    </div>
+
+    <div class="site-group">
+      <h3>Sites d'offres surveillés</h3>
+      <div class="site-row"><span class="name">Alliance Emploi</span><a class="icon-link" href="https://alliance-emploi.org/offres?contrats=cdd&location=50.358552%2C3.510438&radius=25&city=Valenciennes" target="_blank">Ouvrir la recherche ↗</a></div>
+      <div class="site-row"><span class="name">France Travail</span><a class="icon-link" href="https://candidat.francetravail.fr/offres/recherche?lieux=59606&offresPartenaires=true&rayon=20&tri=0&typeContrat=CDD,MIS" target="_blank">Ouvrir la recherche ↗</a></div>
+      <div class="site-row"><span class="name">Indeed</span><a class="icon-link" href="https://fr.indeed.com/jobs?q=&l=Valenciennes+%2859%29&radius=25" target="_blank">Ouvrir la recherche ↗</a></div>
+      <div class="site-row"><span class="name">Manpower</span><a class="icon-link" href="https://www.manpower.fr/offre-emploi/hauts-de-france/nord/valenciennes/r17d59v59606.html" target="_blank">Ouvrir la recherche ↗</a></div>
+      <p style="font-size:12px; color:var(--ink-soft);">Indeed bloque la lecture automatique de ses résultats : je passe par la recherche web pour ce site plutôt que par une lecture directe.</p>
+    </div>
+
+    <div class="site-group">
+      <h3>Agences d'intérim — adresse confirmée à Valenciennes</h3>
+      <div class="site-row"><span class="name">R.A.S Intérim</span><span class="addr">368 Bd Henri Harpignies, 59300</span><a class="icon-link" href="https://www.ras-interim.fr/valenciennes/" target="_blank">Site ↗</a></div>
+      <div class="site-row"><span class="name">Manpower (Tertiaire / BTP / Industrie / Cadres)</span><span class="addr">152 Bd Henri Harpignies, 59300</span><a class="icon-link" href="https://vosagences.manpower.fr/hauts-de-france/nord/valenciennes" target="_blank">Site ↗</a></div>
+      <div class="site-row"><span class="name">SUP Intérim</span><span class="addr">167 avenue de Denain, 59300</span><a class="icon-link" href="https://agences.supinterim.fr/hauts-de-france/nord/valenciennes" target="_blank">Site ↗</a></div>
+      <div class="site-row"><span class="name">Essentia Intérim</span><span class="addr">54 Av. du Sénateur Girard, 59300</span><a class="icon-link" href="https://infoagenceinterim.com/ville/valenciennes_59300/" target="_blank">Site ↗</a></div>
+      <div class="site-row"><span class="name">Régional Intérim</span><span class="addr">60 Av. du Sénateur Girard, 59300</span><a class="icon-link" href="https://infoagenceinterim.com/ville/valenciennes_59300/" target="_blank">Site ↗</a></div>
+    </div>
+
+    <div class="site-group">
+      <h3>Autres agences actives sur le secteur (15 km)</h3>
+      <div class="site-row"><span class="name">CRIT Valenciennes Industrie</span><a class="icon-link" href="https://www.crit-job.com/agences-interim/Valenciennes" target="_blank">Site ↗</a></div>
+      <div class="site-row"><span class="name">Start People Valenciennes</span><a class="icon-link" href="https://www.pagesjaunes.fr/annuaire/valenciennes-59/agences-d-interim-et-d-emploi" target="_blank">Annuaire ↗</a></div>
+      <div class="site-row"><span class="name">Samsic Emploi Valenciennes</span><a class="icon-link" href="https://www.petitfute.com/v26517-valenciennes-59300/c1172-pense-fute-services/c1127-emploi-formation/c793-interim/" target="_blank">Annuaire ↗</a></div>
+      <div class="site-row"><span class="name">Adéquat, Proman, Synergie (Onnaing/Hordain), Randstad, Adecco, Adia, Kelly Services</span><span class="addr">présentes sur les offres du secteur, sans point fixe confirmé</span></div>
+      <p style="font-size:12px; color:var(--ink-soft);">Liste non exhaustive — 38 agences recensées autour de Valenciennes. Dites-moi si vous voulez que je creuse une agence en particulier.</p>
+    </div>
+
+    <div class="site-group">
+      <h3>Dernière veille</h3>
+      <p style="font-size:13.5px;" id="lastVeilleText">—</p>
+      <p style="font-size:12px; color:var(--ink-soft);">Passage du 24/08 : Alliance Emploi, France Travail et Manpower consultés en profondeur (pagination complète) ; R.A.S Intérim et CRIT consultés mais sans nouvelle offre correspondant aux critères ce jour-là. Les agences restantes seront couvertes au fil des prochains passages.</p>
+      <button class="btn btn-ghost btn-sm" id="syncRemoteBtn" style="margin-top:10px;" onclick="runRemoteSyncAndRefresh(this)">Vérifier les nouvelles offres</button>
+      <p style="font-size:12px; color:var(--ink-soft); margin-top:6px;" id="remoteSyncStatus"></p>
+    </div>
+  </section>
+
+</div>
+
+<button class="fab" id="fabAdd" title="Ajouter une annonce">+</button>
+
+<div class="modal-bg" id="modalBg">
+  <div class="modal">
+    <h2>Ajouter une annonce</h2>
+    <div class="field"><label>Intitulé du poste</label><input type="text" id="f-titre" placeholder="Ex. Agent de production"></div>
+    <div class="field"><label>Entreprise / agence</label><input type="text" id="f-entreprise" placeholder="Ex. Manpower"></div>
+    <div class="field"><label>Lieu</label><input type="text" id="f-lieu" placeholder="Ex. Valenciennes"></div>
+    <div class="field"><label>Type de contrat</label>
+      <select id="f-contrat"><option>CDD</option><option>Intérim</option><option>CDI</option><option>Autre</option></select>
+    </div>
+    <div class="field"><label>Durée (si connue)</label><input type="text" id="f-duree" placeholder="Ex. 3 mois"></div>
+    <div class="field"><label>Lien de l'annonce</label><input type="text" id="f-url" placeholder="https://…"></div>
+    <div class="field"><label>Notes</label><textarea id="f-notes" placeholder="Prérequis, horaires, remarques…"></textarea></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="cancelAdd">Annuler</button>
+      <button class="btn btn-primary" id="confirmAdd">Ajouter</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="storage-polyfill.js"></script>
+<script src="app.js"></script>
+<script src="remote-sync.js"></script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('service-worker.js').catch(() => {});
+  });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "name": "pilotage-emploi-scraper",
+  "version": "1.0.0",
+  "description": "Veille quotidienne Alliance Emploi + France Travail pour le tableau de bord Pilotage emploi",
+  "main": "scrape.js",
+  "scripts": {
+    "scrape": "node scrape.js",
+    "test": "node test/parse.test.js"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0"
+  }
+}
