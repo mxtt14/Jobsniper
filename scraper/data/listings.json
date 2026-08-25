@@ -1,5 +1,406 @@
 {
-  "updatedAt": null,
-  "listings": [],
-  "runLog": []
+  "updatedAt": "2026-08-25T09:07:24.036Z",
+  "listings": [
+    {
+      "id": "ae-controleur-qualite-2026-3241",
+      "titre": "Controleur qualite",
+      "entreprise": "Non précisé",
+      "lieu": "Non précisé",
+      "contrat": "CDD",
+      "source": "Alliance Emploi",
+      "url": "https://alliance-emploi.org/offre/controleur-qualite-2026-3241",
+      "dateRepere": "2026-08-22"
+    },
+    {
+      "id": "ae-assistant-logistique-et-production-2026-3234",
+      "titre": "Assistant logistique et production",
+      "entreprise": "Non précisé",
+      "lieu": "Non précisé",
+      "contrat": "CDD",
+      "source": "Alliance Emploi",
+      "url": "https://alliance-emploi.org/offre/assistant-logistique-et-production-2026-3234",
+      "dateRepere": "2026-08-19"
+    },
+    {
+      "id": "ae-operateur-production-en-aeronautique-2026-2819",
+      "titre": "Operateur production en aeronautique Alliance Emploi recrute pour l’un de ses adhérents, acteur reconnu du secteur aéronautique, des Opérateurs de production en Aéronautique (H/F) afin de renforcer ses équipes sur le site de Saint-Amand les Eaux.🎯...",
+      "entreprise": "Non précisé",
+      "lieu": "Non précisé",
+      "contrat": "CDD",
+      "source": "Alliance Emploi",
+      "url": "https://alliance-emploi.org/offre/operateur-production-en-aeronautique-2026-2819",
+      "dateRepere": "2026-08-18"
+    },
+    {
+      "id": "ae-operateur-production-2026-3120",
+      "titre": "Operateur production",
+      "entreprise": "Non précisé",
+      "lieu": "Non précisé",
+      "contrat": "CDD",
+      "source": "Alliance Emploi",
+      "url": "https://alliance-emploi.org/offre/operateur-production-2026-3120",
+      "dateRepere": "2026-08-18"
+    },
+    {
+      "id": "ae-operateur-production-2026-2875",
+      "titre": "Operateur production",
+      "entreprise": "Non précisé",
+      "lieu": "Non précisé",
+      "contrat": "CDD",
+      "source": "Alliance Emploi",
+      "url": "https://alliance-emploi.org/offre/operateur-production-2026-2875",
+      "dateRepere": "2026-08-18"
+    },
+    {
+      "id": "ae-conducteur-de-ligne-2025-2204",
+      "titre": "Tilloy-lez-Cambrai, France Conducteur de ligne",
+      "entreprise": "Non précisé",
+      "lieu": "Non précisé",
+      "contrat": "CDD",
+      "source": "Alliance Emploi",
+      "url": "https://alliance-emploi.org/offre/conducteur-de-ligne-2025-2204",
+      "dateRepere": "2026-08-18"
+    },
+    {
+      "id": "ae-technicien-de-maintenance-2026-3036",
+      "titre": "Technicien de maintenance",
+      "entreprise": "Non précisé",
+      "lieu": "Non précisé",
+      "contrat": "CDD",
+      "source": "Alliance Emploi",
+      "url": "https://alliance-emploi.org/offre/technicien-de-maintenance-2026-3036",
+      "dateRepere": "2026-08-18"
+    },
+    {
+      "id": "ae-operateur-qualite-en-aeronautique-2026-3218",
+      "titre": "Operateur qualite en aeronautique",
+      "entreprise": "Non précisé",
+      "lieu": "Non précisé",
+      "contrat": "CDD",
+      "source": "Alliance Emploi",
+      "url": "https://alliance-emploi.org/offre/operateur-qualite-en-aeronautique-2026-3218",
+      "dateRepere": "2026-08-11"
+    },
+    {
+      "id": "ae-pontier-2026-3212",
+      "titre": "Pontier",
+      "entreprise": "Non précisé",
+      "lieu": "Non précisé",
+      "contrat": "CDD",
+      "source": "Alliance Emploi",
+      "url": "https://alliance-emploi.org/offre/pontier-2026-3212",
+      "dateRepere": "2026-08-04"
+    },
+    {
+      "id": "ae-rondier-2026-3211",
+      "titre": "Rondier",
+      "entreprise": "Non précisé",
+      "lieu": "Non précisé",
+      "contrat": "CDD",
+      "source": "Alliance Emploi",
+      "url": "https://alliance-emploi.org/offre/rondier-2026-3211",
+      "dateRepere": "2026-08-04"
+    },
+    {
+      "id": "ae-aide-regleur-2026-3195",
+      "titre": "Vieux-Condé Aide regleur",
+      "entreprise": "Non précisé",
+      "lieu": "Non précisé",
+      "contrat": "CDD",
+      "source": "Alliance Emploi",
+      "url": "https://alliance-emploi.org/offre/aide-regleur-2026-3195",
+      "dateRepere": "2026-08-04"
+    },
+    {
+      "id": "ae-agent-de-maintenance-2026-3166",
+      "titre": "Agent de maintenance",
+      "entreprise": "Non précisé",
+      "lieu": "Non précisé",
+      "contrat": "CDD",
+      "source": "Alliance Emploi",
+      "url": "https://alliance-emploi.org/offre/agent-de-maintenance-2026-3166",
+      "dateRepere": "2026-07-25"
+    },
+    {
+      "id": "ae-cariste-3-et-5-2026-2932",
+      "titre": "Cariste 1/3/5",
+      "entreprise": "Non précisé",
+      "lieu": "Non précisé",
+      "contrat": "CDD",
+      "source": "Alliance Emploi",
+      "url": "https://alliance-emploi.org/offre/cariste-3-et-5-2026-2932",
+      "dateRepere": "2026-07-25"
+    },
+    {
+      "id": "ae-operateur-production-polyvalent-2026-3149",
+      "titre": "SOMAIN Operateur production polyvalent",
+      "entreprise": "Non précisé",
+      "lieu": "Non précisé",
+      "contrat": "CDD",
+      "source": "Alliance Emploi",
+      "url": "https://alliance-emploi.org/offre/operateur-production-polyvalent-2026-3149",
+      "dateRepere": "2026-07-25"
+    },
+    {
+      "id": "ae-electromecanicien-2026-3129",
+      "titre": "Electromecanicien",
+      "entreprise": "Non précisé",
+      "lieu": "Non précisé",
+      "contrat": "CDD",
+      "source": "Alliance Emploi",
+      "url": "https://alliance-emploi.org/offre/electromecanicien-2026-3129",
+      "dateRepere": "2026-07-25"
+    },
+    {
+      "id": "ae-maintenancier-automaticien-et-electromecanicien-2026-2997",
+      "titre": "Hordain Maintenancier automaticien & electromecanicien",
+      "entreprise": "Non précisé",
+      "lieu": "Non précisé",
+      "contrat": "CDD",
+      "source": "Alliance Emploi",
+      "url": "https://alliance-emploi.org/offre/maintenancier-automaticien-et-electromecanicien-2026-2997",
+      "dateRepere": "2026-07-25"
+    },
+    {
+      "id": "ae-pilote-de-systeme-de-production-ferrage-2026-2995",
+      "titre": "Hordain Conducteur de ligne",
+      "entreprise": "Non précisé",
+      "lieu": "Non précisé",
+      "contrat": "CDD",
+      "source": "Alliance Emploi",
+      "url": "https://alliance-emploi.org/offre/pilote-de-systeme-de-production-ferrage-2026-2995",
+      "dateRepere": "2026-07-25"
+    },
+    {
+      "id": "ae-cariste-2026-3089",
+      "titre": "FLINES LEZ RACHES Cariste",
+      "entreprise": "Non précisé",
+      "lieu": "Non précisé",
+      "contrat": "CDD",
+      "source": "Alliance Emploi",
+      "url": "https://alliance-emploi.org/offre/cariste-2026-3089",
+      "dateRepere": "2026-06-25"
+    },
+    {
+      "id": "ae-metteur-au-point-2026-2998",
+      "titre": "Hordain Metteur au point",
+      "entreprise": "Non précisé",
+      "lieu": "Non précisé",
+      "contrat": "CDD",
+      "source": "Alliance Emploi",
+      "url": "https://alliance-emploi.org/offre/metteur-au-point-2026-2998",
+      "dateRepere": "2026-06-25"
+    },
+    {
+      "id": "ae-maintenancier-automaticien-et-electromecanicien-2026-2994",
+      "titre": "Valenciennes Maintenancier automaticien et électromécanicien",
+      "entreprise": "Non précisé",
+      "lieu": "Non précisé",
+      "contrat": "CDD",
+      "source": "Alliance Emploi",
+      "url": "https://alliance-emploi.org/offre/maintenancier-automaticien-et-electromecanicien-2026-2994",
+      "dateRepere": "2026-06-25"
+    },
+    {
+      "id": "ae-pilote-de-systeme-de-production-mecanique-2026-2992",
+      "titre": "Valenciennes Pilote de système de production mécanique",
+      "entreprise": "Non précisé",
+      "lieu": "Non précisé",
+      "contrat": "CDD",
+      "source": "Alliance Emploi",
+      "url": "https://alliance-emploi.org/offre/pilote-de-systeme-de-production-mecanique-2026-2992",
+      "dateRepere": "2026-06-25"
+    },
+    {
+      "id": "ae-cariste-35-2026-2958",
+      "titre": "Vieux-Condé Cariste 3/5",
+      "entreprise": "Non précisé",
+      "lieu": "Non précisé",
+      "contrat": "CDD",
+      "source": "Alliance Emploi",
+      "url": "https://alliance-emploi.org/offre/cariste-35-2026-2958",
+      "dateRepere": "2026-05-25"
+    },
+    {
+      "id": "ae-technicien-de-maintenance-2026-2892",
+      "titre": "Technicien de maintenance",
+      "entreprise": "Non précisé",
+      "lieu": "Non précisé",
+      "contrat": "CDD",
+      "source": "Alliance Emploi",
+      "url": "https://alliance-emploi.org/offre/technicien-de-maintenance-2026-2892",
+      "dateRepere": "2026-05-25"
+    },
+    {
+      "id": "ae-technicien-de-maintenance-2026-2694",
+      "titre": "Technicien de maintenance",
+      "entreprise": "Non précisé",
+      "lieu": "Non précisé",
+      "contrat": "CDD",
+      "source": "Alliance Emploi",
+      "url": "https://alliance-emploi.org/offre/technicien-de-maintenance-2026-2694",
+      "dateRepere": "2026-03-25"
+    },
+    {
+      "id": "ft-212vytq",
+      "titre": "(déjà vu)Animateurs / Animatrices Accompagnement Scolaire (H/F) MAIRIE",
+      "entreprise": "Non précisé",
+      "lieu": "Non précisé",
+      "contrat": "CDD",
+      "source": "France Travail",
+      "url": "/offres/recherche/detail/212VYTQ",
+      "dateRepere": "2026-08-25"
+    },
+    {
+      "id": "ft-212vhnb",
+      "titre": "(déjà vu)AGENT DE PROPRETE (H/F)",
+      "entreprise": "AGILICE",
+      "lieu": "OnnaingVOUS",
+      "contrat": "CDD",
+      "source": "France Travail",
+      "url": "/offres/recherche/detail/212VHNB",
+      "dateRepere": "2026-08-25"
+    },
+    {
+      "id": "ft-212sysx",
+      "titre": "(déjà vu)Facteur/Factrice (H/F/X) (H/F) L'UCIE INTERIM",
+      "entreprise": "Non précisé",
+      "lieu": "Non précisé",
+      "contrat": "Intérim",
+      "source": "France Travail",
+      "url": "/offres/recherche/detail/212SYSX",
+      "dateRepere": "2026-08-21"
+    },
+    {
+      "id": "ft-212symg",
+      "titre": "(déjà vu)Prothesiste dentaire design cfao (H/F) LECLERCQ DAVID",
+      "entreprise": "Non précisé",
+      "lieu": "Non précisé",
+      "contrat": "CDD",
+      "source": "France Travail",
+      "url": "/offres/recherche/detail/212SYMG",
+      "dateRepere": "2026-08-21"
+    },
+    {
+      "id": "ft-212ssvh",
+      "titre": "(déjà vu)Alternance - Vendeur en boulangerie H/F (H/F) ISEAH FORMATION",
+      "entreprise": "Non précisé",
+      "lieu": "Non précisé",
+      "contrat": "CDD",
+      "source": "France Travail",
+      "url": "/offres/recherche/detail/212SSVH",
+      "dateRepere": "2026-08-21"
+    },
+    {
+      "id": "ft-212spkk",
+      "titre": "(déjà vu)Hote hotesse accueil (H/F)",
+      "entreprise": "COM AND GO",
+      "lieu": "ValenciennesTRES",
+      "contrat": "CDD",
+      "source": "France Travail",
+      "url": "/offres/recherche/detail/212SPKK",
+      "dateRepere": "2026-08-21"
+    },
+    {
+      "id": "ft-212rpfr",
+      "titre": "(déjà vu)Vendeur / Vendeuse en boulangerie-pâtisserie (H/F) B AND D",
+      "entreprise": "Non précisé",
+      "lieu": "Non précisé",
+      "contrat": "CDD",
+      "source": "France Travail",
+      "url": "/offres/recherche/detail/212RPFR",
+      "dateRepere": "2026-08-20"
+    },
+    {
+      "id": "ft-212qbnm",
+      "titre": "(déjà vu)Opérateur de Saisie (H/F) XBP EUROPE ARISTA",
+      "entreprise": "Non précisé",
+      "lieu": "Non précisé",
+      "contrat": "CDD",
+      "source": "France Travail",
+      "url": "/offres/recherche/detail/212QBNM",
+      "dateRepere": "2026-08-18"
+    },
+    {
+      "id": "ft-212plcl",
+      "titre": "(déjà vu)Secrétaire/standardiste polyvalente (H/F)",
+      "entreprise": "NOUVELLE CLINIQUE DES DENTELLIERES",
+      "lieu": "ValenciennesLe",
+      "contrat": "CDD",
+      "source": "France Travail",
+      "url": "/offres/recherche/detail/212PLCL",
+      "dateRepere": "2026-08-18"
+    },
+    {
+      "id": "ft-212nbcy",
+      "titre": "(déjà vu)Conseiller / Conseillère en économie sociale et fam",
+      "entreprise": "Non précisé",
+      "lieu": "Non précisé",
+      "contrat": "CDD",
+      "source": "France Travail",
+      "url": "/offres/recherche/detail/212NBCY",
+      "dateRepere": "2026-08-17"
+    },
+    {
+      "id": "ft-212lzqw",
+      "titre": "(déjà vu)apprenti (e) vente point chaud/viennoiserie (H/F) LA BAVAROISE",
+      "entreprise": "Non précisé",
+      "lieu": "Non précisé",
+      "contrat": "CDD",
+      "source": "France Travail",
+      "url": "/offres/recherche/detail/212LZQW",
+      "dateRepere": "2026-08-14"
+    },
+    {
+      "id": "ft-212jwbw",
+      "titre": "(déjà vu)Trieur de métaux H/F PARTNAIRE",
+      "entreprise": "Non précisé",
+      "lieu": "Non précisé",
+      "contrat": "Intérim",
+      "source": "France Travail",
+      "url": "/offres/recherche/detail/212JWBW",
+      "dateRepere": "2026-08-12"
+    },
+    {
+      "id": "ft-212hdvh",
+      "titre": "(déjà vu)Aide ménagère (H/F)Wallers/ Denain ASS ESCAUDINOISE BIEN ETRE ET SANTE",
+      "entreprise": "Non précisé",
+      "lieu": "Non précisé",
+      "contrat": "CDD",
+      "source": "France Travail",
+      "url": "/offres/recherche/detail/212HDVH",
+      "dateRepere": "2026-08-10"
+    },
+    {
+      "id": "ft-212gtfl",
+      "titre": "(déjà vu)Apprenti(e) vendeur / vendeuse en prêt à porter (H/",
+      "entreprise": "Non précisé",
+      "lieu": "Non précisé",
+      "contrat": "CDD",
+      "source": "France Travail",
+      "url": "/offres/recherche/detail/212GTFL",
+      "dateRepere": "2026-08-10"
+    }
+  ],
+  "runLog": [
+    {
+      "date": "2026-08-25",
+      "sources": [
+        {
+          "name": "Alliance Emploi",
+          "status": "ok",
+          "found": 24
+        },
+        {
+          "name": "France Travail",
+          "status": "ok",
+          "found": 20
+        }
+      ],
+      "parsedTotal": 44,
+      "keptAfterFilters": 38,
+      "excludedByFilters": 6,
+      "newListings": 38
+    }
+  ]
 }
