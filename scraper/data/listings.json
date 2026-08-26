@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-26T06:52:14.114Z",
+  "updatedAt": "2026-08-26T10:42:00.032Z",
   "listings": [
     {
       "id": "ae-controleur-qualite-2026-3241",
@@ -410,9 +410,48 @@
       "source": "France Travail",
       "url": "/offres/recherche/detail/212GKWK",
       "dateRepere": "2026-08-07"
+    },
+    {
+      "id": "ft-212ydzp",
+      "titre": "(déjà vu)Responsable de crèche (H/F)",
+      "entreprise": "ASS CENTRES SOCIAUX ET SOCIO CULTURELS",
+      "lieu": "VALENCIENNESLIEU",
+      "contrat": "CDD",
+      "source": "France Travail",
+      "url": "https://candidat.francetravail.fr/offres/recherche/detail/212YDZP",
+      "dateRepere": "2026-08-26"
+    },
+    {
+      "id": "ft-212rrpd",
+      "titre": "(déjà vu)Secrétaire médical / Secrétaire médicale59 - CONDE-",
+      "entreprise": "Non précisé",
+      "lieu": "Non précisé",
+      "contrat": "CDD",
+      "source": "France Travail",
+      "url": "https://candidat.francetravail.fr/offres/recherche/detail/212RRPD",
+      "dateRepere": "2026-08-20"
     }
   ],
   "runLog": [
+    {
+      "date": "2026-08-26",
+      "sources": [
+        {
+          "name": "Alliance Emploi",
+          "status": "ok",
+          "found": 24
+        },
+        {
+          "name": "France Travail",
+          "status": "ok",
+          "found": 20
+        }
+      ],
+      "parsedTotal": 44,
+      "keptAfterFilters": 38,
+      "excludedByFilters": 6,
+      "newListings": 2
+    },
     {
       "date": "2026-08-26",
       "sources": [
