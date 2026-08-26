@@ -6,18 +6,15 @@ const SOURCES = [
   {
     name: 'Alliance Emploi',
     url: 'https://alliance-emploi.org/offres?contrats=cdd&location=50.358552%2C3.510438&radius=25&city=Valenciennes',
+    baseUrl: 'https://alliance-emploi.org/',
     parse: parseAllianceEmploi,
   },
   {
     name: 'France Travail',
     url: 'https://candidat.francetravail.fr/offres/recherche?lieux=59606&offresPartenaires=true&rayon=20&tri=0&typeContrat=CDD,MIS',
+    baseUrl: 'https://candidat.francetravail.fr/',
     parse: parseFranceTravail,
   },
-  // Indeed is deliberately excluded: it returns HTTP 403 / blocks automated
-  // fetches (robots.txt disallow), confirmed when this was first built.
-  // Manpower is not wired in yet — its listing pages are paginated
-  // differently and weren't covered by the fixtures this scraper was
-  // tested against. Worth adding once someone can review a first real run.
 ];
 
 const DATA_FILE = path.join(__dirname, 'data', 'listings.json');
@@ -62,7 +59,7 @@ async function main() {
   for (const src of SOURCES) {
     try {
       const html = await fetchWithTimeout(src.url);
-      const parsed = src.parse(html, today);
+      const parsed = src.parse(html, today, src.baseUrl);
       allParsed = allParsed.concat(parsed);
       runLog.sources.push({ name: src.name, status: 'ok', found: parsed.length });
     } catch (err) {

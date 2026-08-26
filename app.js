@@ -111,6 +111,16 @@ async function deleteListing(id){
   if(!confirm('Supprimer cette annonce du tableau de bord ?')) return;
   await sDelete('listing:'+id);
   listings = listings.filter(l=>l.id!==id);
+  // Forget this id from the import-tracking lists too: without this, a
+  // corrected/updated version published later under the same id would be
+  // silently skipped forever, since the sync logic only ever adds ids it
+  // has never seen.
+  for (const trackingKey of ['meta:remote-imported', 'meta:seed-imported']) {
+    const tracked = await sGet(trackingKey);
+    if (tracked && tracked.includes(id)) {
+      await sSet(trackingKey, tracked.filter((t) => t !== id));
+    }
+  }
   showToast('Annonce supprimée');
   renderAll();
 }

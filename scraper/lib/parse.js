@@ -1,17 +1,12 @@
 const cheerio = require('cheerio');
 
-// Titles that must never appear, per the user's explicit exclusions.
 const EXCLUDED_TITLE_KEYWORDS = [
   'caissier', 'caissière', 'hote de caisse', 'hôte de caisse', 'hôtesse de caisse',
   'préparateur de commandes', 'preparateur de commandes',
 ];
 
-// Best-effort signal that a driving licence is central to the role.
-// This is a heuristic on the title/snippet text only (list pages don't
-// expose the full description) — it will miss some cases and
-// over-flag others. Treat it as a first filter, not a guarantee.
 const DRIVING_LICENCE_KEYWORDS = [
-  'chauffeur', 'livreur', 'conducteur routier', 'conducteur spl', 'permis b',
+  'chauffeur', 'conducteur routier', 'conducteur spl', 'permis b',
   'permis c', 'permis poids lourd', 'coursier',
 ];
 
@@ -42,7 +37,7 @@ function relativeDateToISO(text, today = new Date()) {
   if (/il y a 1 semaine/.test(n)) { d.setDate(d.getDate() - 7); return d.toISOString().slice(0, 10); }
   m = n.match(/il y a (\d+) mois/);
   if (m) { d.setMonth(d.getMonth() - parseInt(m[1], 10)); return d.toISOString().slice(0, 10); }
-  return null; // unknown — caller decides what to do
+  return null;
 }
 
 function slugFromUrl(url) {
@@ -50,23 +45,18 @@ function slugFromUrl(url) {
   return parts[parts.length - 1].replace(/[^a-z0-9-]/gi, '').slice(0, 60);
 }
 
-/**
- * Alliance Emploi: every offer is an <a href="…/offre/…"> whose visible
- * text starts with a relative date, then the town, then the title.
- * Pattern observed: "il y a 2 semaines saint-saulveRondier Et si vous…"
- */
-function parseAllianceEmploi(html, today = new Date()) {
+function parseAllianceEmploi(html, today = new Date(), baseUrl = 'https://alliance-emploi.org/') {
   const $ = cheerio.load(html);
   const results = [];
   const seen = new Set();
   $('a[href*="/offre/"]').each((_, el) => {
-    const url = $(el).attr('href');
-    if (!url || seen.has(url)) return; // page repeats the link ("Voir l'offre")
+    const hrefRaw = $(el).attr('href');
+    if (!hrefRaw) return;
+    const url = new URL(hrefRaw, baseUrl).toString();
+    if (seen.has(url)) return;
     seen.add(url);
     const anchorText = $(el).text().trim().replace(/\s+/g, ' ');
     if (!anchorText) return;
-    // Contract badge and sector live as sibling elements, not inside the
-    // title link — read the whole container for that part.
     const containerText = $(el).closest('div, li, article').text().trim().replace(/\s+/g, ' ') || anchorText;
     const dateISO = relativeDateToISO(anchorText, today);
     const cut = anchorText.split(/Et si vous|Nous sommes à la recherche|Nous recrutons|Avec 27 ans|Au sein/)[0];
@@ -86,18 +76,14 @@ function parseAllianceEmploi(html, today = new Date()) {
   return results;
 }
 
-/**
- * France Travail: every offer is an <a href="…/offres/recherche/detail/ID">
- * whose text is "Origine de l'offre : … TITLE ENTREPRISE - DEPT - VILLE
- * description… CONTRAT - TEMPS Publié DATE …"
- */
-function parseFranceTravail(html, today = new Date()) {
+function parseFranceTravail(html, today = new Date(), baseUrl = 'https://candidat.francetravail.fr/') {
   const $ = cheerio.load(html);
   const results = [];
   $('a[href*="/offres/recherche/detail/"]').each((_, el) => {
-    const url = $(el).attr('href');
+    const hrefRaw = $(el).attr('href');
     const text = $(el).text().trim().replace(/\s+/g, ' ');
-    if (!url || !text) return;
+    if (!hrefRaw || !text) return;
+    const url = new URL(hrefRaw, baseUrl).toString();
     const dateMatch = text.match(/Publié (aujourd.?hui|il y a \d+ (jour|jours|semaine|semaines|mois))/i);
     const dateISO = dateMatch ? relativeDateToISO(dateMatch[0].replace(/^Publié /i, ''), today) : null;
     const contratMatch = text.match(/\b(CDD|Intérim|Interim|CDI)\b/);
