@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-25T09:07:24.036Z",
+  "updatedAt": "2026-08-26T06:52:14.114Z",
   "listings": [
     {
       "id": "ae-controleur-qualite-2026-3241",
@@ -380,9 +380,58 @@
       "source": "France Travail",
       "url": "/offres/recherche/detail/212GTFL",
       "dateRepere": "2026-08-10"
+    },
+    {
+      "id": "ae-maintenancier-electronicien-2026-3245",
+      "titre": "il y a 18 heures valenciennes Maintenancier electronicien Nous recherchons pour notre adhérent, industrie automobile située sur Valenciennes, UN MAINTENANCIER ELECTRONICIEN H/F en CDD de 3 mois. Rattaché au superviseur, vous aurez pour missions principales: Réaliser la...",
+      "entreprise": "Non précisé",
+      "lieu": "Non précisé",
+      "contrat": "CDD",
+      "source": "Alliance Emploi",
+      "url": "https://alliance-emploi.org/offre/maintenancier-electronicien-2026-3245",
+      "dateRepere": "2026-08-26"
+    },
+    {
+      "id": "ft-212xqyl",
+      "titre": "(déjà vu)Trieur de métaux H/F PARTNAIRE",
+      "entreprise": "Non précisé",
+      "lieu": "Non précisé",
+      "contrat": "Intérim",
+      "source": "France Travail",
+      "url": "/offres/recherche/detail/212XQYL",
+      "dateRepere": "2026-08-26"
+    },
+    {
+      "id": "ft-212gkwk",
+      "titre": "(déjà vu)Secrétaire Médicale H/F - CDD - Temps Plein POLYCLINIQUE DU PARC",
+      "entreprise": "Non précisé",
+      "lieu": "Non précisé",
+      "contrat": "CDD",
+      "source": "France Travail",
+      "url": "/offres/recherche/detail/212GKWK",
+      "dateRepere": "2026-08-07"
     }
   ],
   "runLog": [
+    {
+      "date": "2026-08-26",
+      "sources": [
+        {
+          "name": "Alliance Emploi",
+          "status": "ok",
+          "found": 24
+        },
+        {
+          "name": "France Travail",
+          "status": "ok",
+          "found": 20
+        }
+      ],
+      "parsedTotal": 44,
+      "keptAfterFilters": 38,
+      "excludedByFilters": 6,
+      "newListings": 3
+    },
     {
       "date": "2026-08-25",
       "sources": [
