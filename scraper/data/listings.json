@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-26T10:42:00.032Z",
+  "updatedAt": "2026-08-27T17:25:23.005Z",
   "listings": [
     {
       "id": "ae-controleur-qualite-2026-3241",
@@ -430,9 +430,78 @@
       "source": "France Travail",
       "url": "https://candidat.francetravail.fr/offres/recherche/detail/212RRPD",
       "dateRepere": "2026-08-20"
+    },
+    {
+      "id": "ae-conducteur-dinstallation-2026-3253",
+      "titre": "il y a 5 heures valenciennes Conducteur d'installation",
+      "entreprise": "Non précisé",
+      "lieu": "Non précisé",
+      "contrat": "CDD",
+      "source": "Alliance Emploi",
+      "url": "https://alliance-emploi.org/offre/conducteur-dinstallation-2026-3253",
+      "dateRepere": "2026-08-27"
+    },
+    {
+      "id": "ft-212yxnd",
+      "titre": "(déjà vu)Technicien de maintenance électrique (H/F)",
+      "entreprise": "PARTNAIRE",
+      "lieu": "DenainPartnaire",
+      "contrat": "Intérim",
+      "source": "France Travail",
+      "url": "https://candidat.francetravail.fr/offres/recherche/detail/212YXND",
+      "dateRepere": "2026-08-27"
+    },
+    {
+      "id": "ft-212ynnw",
+      "titre": "(déjà vu)Agent des Services Hospitaliers (ASH) (H/F) - CDD d",
+      "entreprise": "Non précisé",
+      "lieu": "Non précisé",
+      "contrat": "CDD",
+      "source": "France Travail",
+      "url": "https://candidat.francetravail.fr/offres/recherche/detail/212YNNW",
+      "dateRepere": "2026-08-27"
+    },
+    {
+      "id": "ft-212ymmq",
+      "titre": "(déjà vu)Trieurs / Trieuses de pommes de terre (H/F)",
+      "entreprise": "GROUPEMENT D'EMPLOYEURS DU MARCLAU",
+      "lieu": "AVESNES",
+      "contrat": "CDD",
+      "source": "France Travail",
+      "url": "https://candidat.francetravail.fr/offres/recherche/detail/212YMMQ",
+      "dateRepere": "2026-08-27"
+    },
+    {
+      "id": "ft-212ylbf",
+      "titre": "(déjà vu)Employé(e) Polyvalent(e) de Commerce (H/F)",
+      "entreprise": "ISEAH FORMATION",
+      "lieu": "ValenciennesEmployé(e)",
+      "contrat": "CDD",
+      "source": "France Travail",
+      "url": "https://candidat.francetravail.fr/offres/recherche/detail/212YLBF",
+      "dateRepere": "2026-08-27"
     }
   ],
   "runLog": [
+    {
+      "date": "2026-08-27",
+      "sources": [
+        {
+          "name": "Alliance Emploi",
+          "status": "ok",
+          "found": 24
+        },
+        {
+          "name": "France Travail",
+          "status": "ok",
+          "found": 20
+        }
+      ],
+      "parsedTotal": 44,
+      "keptAfterFilters": 38,
+      "excludedByFilters": 6,
+      "newListings": 5
+    },
     {
       "date": "2026-08-26",
       "sources": [
