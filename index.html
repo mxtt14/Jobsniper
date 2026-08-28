@@ -197,7 +197,6 @@
     border-radius:4px 0 0 4px;
   }
   .card::after{
-    /* perforation notches echoing an ordre de mission stub */
     content:"";
     position:absolute; left:2px; top:0; bottom:0; width:6px;
     background-image: radial-gradient(circle, var(--paper) 1.6px, transparent 1.7px);
@@ -417,6 +416,7 @@
     <button class="tab-btn" data-tab="taches">Tâches à produire <span class="count" id="cnt-taches">0</span></button>
     <button class="tab-btn" data-tab="perso">Mes candidatures <span class="count" id="cnt-perso">0</span></button>
     <button class="tab-btn" data-tab="suivi">Suivi des candidatures <span class="count" id="cnt-suivi">0</span></button>
+    <button class="tab-btn" data-tab="documents">Mes documents</button>
     <button class="tab-btn" data-tab="sites">Sites surveillés</button>
   </nav>
 
@@ -480,6 +480,30 @@
   <!-- SUIVI -->
   <section class="panel" id="panel-suivi">
     <div class="kanban" id="kanban"></div>
+  </section>
+
+  <!-- DOCUMENTS -->
+  <section class="panel" id="panel-documents">
+    <div class="card" style="margin-bottom:16px;">
+      <h3 class="card-title" style="margin-bottom:10px;">Mon CV</h3>
+      <p id="cv-status" style="font-size:13px; color:var(--ink-soft); margin:0 0 12px;">Aucun CV chargé pour l'instant.</p>
+      <input type="file" id="cv-file-input" accept=".pdf,.doc,.docx" style="margin-bottom:10px; font-size:13px;">
+      <div class="modal-actions" style="justify-content:flex-start; margin-top:0;">
+        <button class="btn btn-primary btn-sm" id="uploadCvBtn">Charger ce fichier</button>
+        <a class="btn btn-ghost btn-sm" id="downloadCvBtn" style="display:none;" download>Télécharger</a>
+        <button class="btn btn-danger btn-sm" id="deleteCvBtn" style="display:none;">Supprimer</button>
+      </div>
+      <p style="font-size:11.5px; color:var(--ink-soft); margin-top:10px;">Stocké uniquement sur cet appareil, jamais envoyé à un serveur.</p>
+    </div>
+
+    <div class="card">
+      <h3 class="card-title" style="margin-bottom:6px;">Modèle de lettre de motivation</h3>
+      <p style="font-size:12.5px; color:var(--ink-soft); margin:0 0 10px;">Utilisez <code style="background:var(--paper); padding:1px 5px; border-radius:3px; font-family:var(--font-mono); font-size:11.5px;">{{entreprise}}</code>, <code style="background:var(--paper); padding:1px 5px; border-radius:3px; font-family:var(--font-mono); font-size:11.5px;">{{poste}}</code> et <code style="background:var(--paper); padding:1px 5px; border-radius:3px; font-family:var(--font-mono); font-size:11.5px;">{{date}}</code> — remplacés automatiquement selon l'annonce choisie, avec la date du jour.</p>
+      <textarea id="lettre-template" style="width:100%; min-height:280px; font-family:var(--font-mono); font-size:12.5px; line-height:1.6; padding:12px; border:1px solid var(--line); border-radius:4px; background:var(--paper); color:var(--ink);"></textarea>
+      <div class="modal-actions" style="justify-content:flex-start; margin-top:10px;">
+        <button class="btn btn-primary btn-sm" id="saveLettreBtn">Enregistrer le modèle</button>
+      </div>
+    </div>
   </section>
 
   <!-- SITES -->
@@ -551,6 +575,19 @@
     <div class="modal-actions">
       <button class="btn btn-ghost" id="cancelAdd">Annuler</button>
       <button class="btn btn-primary" id="confirmAdd">Ajouter</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-bg" id="lettreModalBg">
+  <div class="modal" style="max-width:600px;">
+    <h2>Lettre générée</h2>
+    <p style="font-size:12.5px; color:var(--ink-soft); margin:0 0 10px;" id="lettreModalMeta"></p>
+    <textarea id="lettreModalText" style="width:100%; min-height:320px; font-family:var(--font-mono); font-size:12.5px; line-height:1.6; padding:12px; border:1px solid var(--line); border-radius:4px; background:var(--paper); color:var(--ink);" readonly></textarea>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="closeLettreModal">Fermer</button>
+      <button class="btn btn-ghost" id="copyLettreBtn">Copier</button>
+      <button class="btn btn-primary" id="downloadLettreBtn">Télécharger en .txt</button>
     </div>
   </div>
 </div>

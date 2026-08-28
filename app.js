@@ -31,8 +31,6 @@ const SEED_LISTINGS = [
   {id:'mp-vendeur-magasin-alim-1101479762', titre:'Vendeur en magasin alimentaire', entreprise:'Manpower', lieu:'Valenciennes', contrat:'Intérim', duree:'Longue mission', source:'Manpower', url:'https://www.manpower.fr/offers/details/1101479762', dateRepere:'2026-08-20', notes:"10 postes disponibles — bon volume de recrutement, mission jusqu'au 15/09 minimum."},
 ];
 const LAST_VEILLE_DATE = '2026-08-24';
-// Annonces retirées car elles ne correspondent plus aux critères (ex. permis de conduire exigé).
-// On ne les supprime que si l'utilisateur ne les a pas encore travaillées, pour ne jamais effacer une candidature en cours.
 const RETIRED_IDS = ['ft-chauffeur-accomp-212vfzr', 'ft-chauffeur-livreur-212pqqj', 'ft-coursier-pizza-212jlcx'];
 
 /* ---------- Storage helpers ---------- */
@@ -111,10 +109,6 @@ async function deleteListing(id){
   if(!confirm('Supprimer cette annonce du tableau de bord ?')) return;
   await sDelete('listing:'+id);
   listings = listings.filter(l=>l.id!==id);
-  // Forget this id from the import-tracking lists too: without this, a
-  // corrected/updated version published later under the same id would be
-  // silently skipped forever, since the sync logic only ever adds ids it
-  // has never seen.
   for (const trackingKey of ['meta:remote-imported', 'meta:seed-imported']) {
     const tracked = await sGet(trackingKey);
     if (tracked && tracked.includes(id)) {
@@ -156,6 +150,7 @@ function cardHTML(l, opts){
       <select class="status-select" onchange="updateStatus('${l.id}', this.value)">${statusOptions}</select>
       <div class="card-actions">
         ${l.url ? `<a class="icon-link" href="${l.url}" target="_blank">Voir l'annonce ↗</a>` : ''}
+        <button class="btn btn-ghost btn-sm" onclick="openLettreModal('${l.id}')">✉️ Lettre</button>
         <button class="btn btn-danger btn-sm" onclick="deleteListing('${l.id}')">Suppr.</button>
       </div>
     </div>
@@ -340,6 +335,124 @@ document.getElementById('confirmAddPerso').addEventListener('click', async ()=>{
   renderAll();
 });
 
+/* ---------- Documents (CV + lettre de motivation) ---------- */
+const DEFAULT_LETTRE_TEMPLATE = `Madame, Monsieur,
+
+Je me permets de vous adresser ma candidature pour le poste de {{poste}} au sein de {{entreprise}}, actuellement ouvert.
+
+Actuellement disponible et à la recherche d'une mission d'environ trois mois, je suis intéressé(e) par les postes accessibles rapidement et souhaite mettre à profit ma motivation et mon sérieux au sein de votre équipe. Rigoureux(se) et adaptable, je m'investis pleinement dans chaque mission qui m'est confiée, quel que soit le secteur.
+
+Je reste à votre disposition pour un entretien à votre convenance et vous remercie de l'attention portée à ma candidature.
+
+Dans l'attente de votre retour, je vous prie d'agréer, Madame, Monsieur, l'expression de mes salutations distinguées.
+
+Fait le {{date}}`;
+
+function fileToDataURL(file){
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = () => reject(reader.error);
+    reader.readAsDataURL(file);
+  });
+}
+
+async function refreshCvStatus(){
+  let cv;
+  try{ cv = await sGet('doc:cv'); } catch(e){ cv = null; }
+  const statusEl = document.getElementById('cv-status');
+  const dlBtn = document.getElementById('downloadCvBtn');
+  const delBtn = document.getElementById('deleteCvBtn');
+  if(cv && cv.dataUrl){
+    statusEl.textContent = `CV actuel : ${cv.filename} (chargé le ${frDate(cv.dateAjout)})`;
+    dlBtn.href = cv.dataUrl;
+    dlBtn.download = cv.filename;
+    dlBtn.style.display = 'inline-flex';
+    delBtn.style.display = 'inline-flex';
+  } else {
+    statusEl.textContent = "Aucun CV chargé pour l'instant.";
+    dlBtn.style.display = 'none';
+    delBtn.style.display = 'none';
+  }
+}
+
+document.getElementById('uploadCvBtn').addEventListener('click', async ()=>{
+  const input = document.getElementById('cv-file-input');
+  const file = input.files[0];
+  if(!file){ showToast("Choisissez un fichier d'abord"); return; }
+  if(file.size > 8 * 1024 * 1024){ showToast('Fichier trop volumineux (max 8 Mo)'); return; }
+  const dataUrl = await fileToDataURL(file);
+  await sSet('doc:cv', { filename: file.name, dataUrl, dateAjout: todayISO() });
+  input.value = '';
+  showToast('CV enregistré');
+  refreshCvStatus();
+});
+
+document.getElementById('deleteCvBtn').addEventListener('click', async ()=>{
+  if(!confirm('Supprimer le CV enregistré ?')) return;
+  await sDelete('doc:cv');
+  showToast('CV supprimé');
+  refreshCvStatus();
+});
+
+async function refreshLettreTemplate(){
+  let tpl;
+  try{ const r = await sGet('doc:lettre-template'); tpl = r; } catch(e){ tpl = null; }
+  document.getElementById('lettre-template').value = (tpl !== null && tpl !== undefined) ? tpl : DEFAULT_LETTRE_TEMPLATE;
+}
+
+document.getElementById('saveLettreBtn').addEventListener('click', async ()=>{
+  const val = document.getElementById('lettre-template').value;
+  await sSet('doc:lettre-template', val);
+  showToast('Modèle enregistré');
+});
+
+async function openLettreModal(listingId){
+  const listing = listings.find(l=>l.id===listingId);
+  if(!listing) return;
+  let tpl;
+  try{ const r = await sGet('doc:lettre-template'); tpl = r; } catch(e){ tpl = null; }
+  if(tpl === null || tpl === undefined) tpl = DEFAULT_LETTRE_TEMPLATE;
+  const dateStr = new Date().toLocaleDateString('fr-FR', { day:'numeric', month:'long', year:'numeric' });
+  const filled = tpl
+    .split('{{entreprise}}').join(listing.entreprise || "l'entreprise")
+    .split('{{poste}}').join(listing.titre || 'ce poste')
+    .split('{{date}}').join(dateStr);
+  document.getElementById('lettreModalMeta').textContent = `Pour : ${listing.titre} — ${listing.entreprise}`;
+  document.getElementById('lettreModalText').value = filled;
+  document.getElementById('lettreModalBg').classList.add('open');
+}
+
+document.getElementById('closeLettreModal').addEventListener('click', ()=>{
+  document.getElementById('lettreModalBg').classList.remove('open');
+});
+document.getElementById('lettreModalBg').addEventListener('click', e=>{
+  if(e.target.id === 'lettreModalBg') document.getElementById('lettreModalBg').classList.remove('open');
+});
+
+document.getElementById('copyLettreBtn').addEventListener('click', async ()=>{
+  const text = document.getElementById('lettreModalText').value;
+  try{
+    await navigator.clipboard.writeText(text);
+    showToast('Lettre copiée dans le presse-papiers');
+  }catch(e){
+    showToast('Copie impossible ici — sélectionnez le texte manuellement');
+  }
+});
+
+document.getElementById('downloadLettreBtn').addEventListener('click', ()=>{
+  const text = document.getElementById('lettreModalText').value;
+  const blob = new Blob([text], {type:'text/plain;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'lettre-motivation.txt';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url), 2000);
+});
+
 /* ---------- Init ---------- */
 window.appReady = (async function init(){
   document.getElementById('lastVeilleText').textContent = 'Dernière recherche effectuée le ' + frDate(LAST_VEILLE_DATE) + '.';
@@ -348,5 +461,7 @@ window.appReady = (async function init(){
   await retireStaleListings();
   await importSeedIfNeeded();
   await loadListings();
+  await refreshCvStatus();
+  await refreshLettreTemplate();
   renderAll();
 })();

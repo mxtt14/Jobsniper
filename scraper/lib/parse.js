@@ -1,12 +1,17 @@
 const cheerio = require('cheerio');
 
+// Titles that must never appear, per the user's explicit exclusions.
 const EXCLUDED_TITLE_KEYWORDS = [
   'caissier', 'caissière', 'hote de caisse', 'hôte de caisse', 'hôtesse de caisse',
   'préparateur de commandes', 'preparateur de commandes',
 ];
 
+// Best-effort signal that a driving licence is central to the role.
+// This is a heuristic on the title/snippet text only (list pages don't
+// expose the full description) — it will miss some cases and
+// over-flag others. Treat it as a first filter, not a guarantee.
 const DRIVING_LICENCE_KEYWORDS = [
-  'chauffeur', 'conducteur routier', 'conducteur spl', 'permis b',
+  'chauffeur', 'livreur', 'conducteur routier', 'conducteur spl', 'permis b',
   'permis c', 'permis poids lourd', 'coursier',
 ];
 
@@ -113,6 +118,78 @@ function parseFranceTravail(html, today = new Date(), baseUrl = 'https://candida
   return results;
 }
 
+function parseManpower(html, today = new Date(), baseUrl = 'https://www.manpower.fr/') {
+  const $ = cheerio.load(html);
+  const results = [];
+  const seen = new Set();
+  $('a[href*="/offers/details/"]').each((_, el) => {
+    const hrefRaw = $(el).attr('href');
+    const title = $(el).text().trim();
+    if (!hrefRaw || !title) return;
+    const url = new URL(hrefRaw, baseUrl).toString();
+    if (seen.has(url)) return;
+    seen.add(url);
+    let containerText = $(el).closest('article, li, div').text().trim().replace(/\s+/g, ' ');
+    const secondPublie = containerText.indexOf('Publié le', containerText.indexOf('Publié le') + 1);
+    if (secondPublie > -1) containerText = containerText.slice(0, secondPublie);
+    const dateMatch = containerText.match(/Publié le (\d{2}\/\d{2}\/\d{4})/);
+    let dateISO = null;
+    if (dateMatch) {
+      const [d, m, y] = dateMatch[1].split('/');
+      dateISO = `${y}-${m}-${d}`;
+    }
+    const contratMatch = containerText.match(/\b(CDI Intérimaire|CDI|CDD|Mission en intérim|Alternance)\b/);
+    const villeMatch = containerText.match(/\b\d{5}\s+([A-ZÀ-Ü][a-zà-ü'\- ]+)/);
+    results.push({
+      id: 'mp-' + slugFromUrl(url),
+      titre: title,
+      url,
+      entreprise: 'Manpower',
+      lieu: villeMatch ? villeMatch[1].trim() : null,
+      contrat: contratMatch ? (contratMatch[0] === 'Mission en intérim' ? 'Intérim' : contratMatch[0]) : 'Autre',
+      dateRepere: dateISO,
+      source: 'Manpower',
+      rawSnippet: containerText,
+    });
+  });
+  return results;
+}
+
+function parseRasInterim(html, today = new Date(), baseUrl = 'https://www.ras-interim.fr/') {
+  const $ = cheerio.load(html);
+  const results = [];
+  $('a[href*="/offres/"]').each((_, el) => {
+    const hrefRaw = $(el).attr('href');
+    const text = $(el).text().trim().replace(/\s+/g, ' ');
+    if (!hrefRaw || !text || !text.includes('—')) return;
+    const url = new URL(hrefRaw, baseUrl).toString();
+    const parts = text.split('—').map((p) => p.trim());
+    const titre = parts[0];
+    const lieu = parts[1] || null;
+    const contrat = parts[2] || 'Autre';
+    const dateMatch = text.match(/Publiée le (\d{2})\/(\d{2})\/(\d{4})/);
+    const dateISO = dateMatch ? `${dateMatch[3]}-${dateMatch[2]}-${dateMatch[1]}` : null;
+    results.push({
+      id: 'ras-' + slugFromUrl(url),
+      titre,
+      url,
+      entreprise: 'R.A.S Intérim',
+      lieu,
+      contrat: contrat === 'Interim' ? 'Intérim' : contrat,
+      dateRepere: dateISO,
+      source: 'R.A.S Intérim',
+      rawSnippet: text,
+    });
+  });
+  return results;
+}
+
+function looksLikeSignificantExperienceRequired(text) {
+  const n = normalize(text);
+  const m = n.match(/(\d+)\s*an[s]?\s*(minimum\s*)?d.experience/);
+  return !!m && parseInt(m[1], 10) >= 2;
+}
+
 function applyExclusionFilters(listings) {
   const kept = [];
   const excluded = [];
@@ -120,6 +197,7 @@ function applyExclusionFilters(listings) {
     if (isExcludedByTitle(l.rawSnippet)) { excluded.push({ ...l, reason: 'titre exclu (caissier/préparateur de commandes)' }); continue; }
     if (l.contrat !== 'CDD' && l.contrat !== 'Intérim') { excluded.push({ ...l, reason: 'contrat hors CDD/Intérim' }); continue; }
     if (looksLikeDrivingLicenceRequired(l.rawSnippet)) { excluded.push({ ...l, reason: 'permis de conduire probable (à vérifier)' }); continue; }
+    if (looksLikeSignificantExperienceRequired(l.rawSnippet)) { excluded.push({ ...l, reason: '2 ans d\'expérience ou plus requis' }); continue; }
     kept.push(l);
   }
   return { kept, excluded };
@@ -128,9 +206,12 @@ function applyExclusionFilters(listings) {
 module.exports = {
   parseAllianceEmploi,
   parseFranceTravail,
+  parseManpower,
+  parseRasInterim,
   applyExclusionFilters,
   isExcludedByTitle,
   looksLikeDrivingLicenceRequired,
+  looksLikeSignificantExperienceRequired,
   relativeDateToISO,
   slugFromUrl,
 };

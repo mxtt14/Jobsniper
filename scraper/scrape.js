@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const { parseAllianceEmploi, parseFranceTravail, applyExclusionFilters } = require('./lib/parse.js');
+const { parseAllianceEmploi, parseFranceTravail, parseManpower, parseRasInterim, applyExclusionFilters } = require('./lib/parse.js');
 
 const SOURCES = [
   {
@@ -15,6 +15,23 @@ const SOURCES = [
     baseUrl: 'https://candidat.francetravail.fr/',
     parse: parseFranceTravail,
   },
+  {
+    name: 'Manpower',
+    url: 'https://www.manpower.fr/offre-emploi/hauts-de-france/nord/valenciennes/r17d59v59606.html',
+    baseUrl: 'https://www.manpower.fr/',
+    parse: parseManpower,
+  },
+  {
+    name: 'R.A.S Intérim',
+    url: 'https://www.ras-interim.fr/offres/agence/valenciennes/',
+    baseUrl: 'https://www.ras-interim.fr/',
+    parse: parseRasInterim,
+  },
+  // Indeed is deliberately excluded: it returns HTTP 403 / blocks automated
+  // fetches (robots.txt disallow), confirmed when this was first built.
+  // Manpower and R.A.S Intérim only cover pages 1 / the single-page agency
+  // listing respectively — no pagination handling yet. CRIT's page renders
+  // via JavaScript (no usable static HTML found) — skipped for now.
 ];
 
 const DATA_FILE = path.join(__dirname, 'data', 'listings.json');

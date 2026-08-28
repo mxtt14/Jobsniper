@@ -1,0 +1,47 @@
+<html><body><div id="offers">
+<article class="offer-card">
+  <h4><a href="https://www.manpower.fr/offers/details/1101473306">Cariste (H/F)</a></h4>
+  <p class="date">Publié le 04/08/2026</p>
+  <p class="contrat">CDI Intérimaire</p>
+  <p class="lieu">59300 Valenciennes</p>
+  <p class="exp">2 ans d'expérience</p>
+  <p class="secteur">Logistique</p>
+  <a href="https://www.manpower.fr/offers/details/1101473306" class="voir-plus">Voir plus de détails</a>
+</article>
+<article class="offer-card">
+  <h4><a href="https://www.manpower.fr/offers/details/1101481889">Technicien de laboratoire analyses chimiques sur matière (H/F)</a></h4>
+  <p class="date">Publié le 25/08/2026</p>
+  <p class="contrat">Mission en intérim</p>
+  <p class="lieu">59300 Valenciennes</p>
+  <p class="exp">< 1 an d'expérience</p>
+  <p class="secteur">Industries chimique, pétrochimique et minière</p>
+  <a href="https://www.manpower.fr/offers/details/1101481889" class="voir-plus">Voir plus de détails</a>
+</article>
+<article class="offer-card">
+  <h4><a href="https://www.manpower.fr/offers/details/1101479027">Peintre en bâtiment (H/F)</a></h4>
+  <p class="date">Publié le 19/08/2026</p>
+  <p class="contrat">Mission en intérim</p>
+  <p class="lieu">59300 Valenciennes</p>
+  <p class="exp">5 ans minimum d'expérience</p>
+  <p class="secteur">Construction / BTP / TP</p>
+  <a href="https://www.manpower.fr/offers/details/1101479027" class="voir-plus">Voir plus de détails</a>
+</article>
+<article class="offer-card">
+  <h4><a href="https://www.manpower.fr/offers/details/1101425497">Agent de conditionnement EXP en IAA ou PHARMA impérative (H/F)</a></h4>
+  <p class="date">Publié le 26/08/2026</p>
+  <p class="contrat">Mission en intérim</p>
+  <p class="lieu">59300 Valenciennes</p>
+  <p class="exp">1 an minimum d'expérience</p>
+  <p class="secteur">Industrie pharmaceutique</p>
+  <a href="https://www.manpower.fr/offers/details/1101425497" class="voir-plus">Voir plus de détails</a>
+</article>
+<article class="offer-card">
+  <h4><a href="https://www.manpower.fr/offers/details/1101475241">Coffreur bancheur (H/F)</a></h4>
+  <p class="date">Publié le 10/08/2026</p>
+  <p class="contrat">Mission en intérim</p>
+  <p class="lieu">59300 Valenciennes</p>
+  <p class="exp">1 an d'expérience</p>
+  <p class="secteur">Construction / BTP / TP</p>
+  <a href="https://www.manpower.fr/offers/details/1101475241" class="voir-plus">Voir plus de détails</a>
+</article>
+</div></body></html>
